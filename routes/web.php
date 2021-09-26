@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -20,7 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-route::resource('articles', ArticleController::class);
+//Route::get('/', [ArticleController::class, 'index']);
+
+route::resource('articles', ArticleController::class)
+->Middleware('auth');
+
+//route::redirect('/', route('articles.index'), 302);
 
 Auth::routes();
 
